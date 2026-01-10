@@ -47,4 +47,11 @@ describe User, type: :model do
         end
     end
 
+    describe 'factory' do
+    it 'has a valid factory' do
+      # Verifies the factory we wrote actually works
+      expect(build(:user)).to be_valid
+    end
+  end
+
 end

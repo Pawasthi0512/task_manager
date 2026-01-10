@@ -39,4 +39,19 @@ RSpec.describe User, type: :model do
       expect(User.new).to respond_to(:password_digest)
     end
   end
+
+  describe 'data integrity' do
+    it 'is created with an associated user via factory' do
+      new_task = create(:task) # Saves to DB
+      expect(new_task.user).to be_instance_of(User)
+      expect(new_task.user_id).to_not be_nil
+    end
+
+    it 'allows overriding attributes' do
+      # You can change specific fields on the fly
+      urgent_task = build(:task, priority: 5, title: "Urgent Fix")
+      expect(urgent_task.priority).to eq(5)
+      expect(urgent_task.title).to eq("Urgent Fix")
+    end
+  end
 end
