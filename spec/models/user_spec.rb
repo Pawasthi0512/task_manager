@@ -22,4 +22,29 @@ describe User, type: :model do
             expect(user).not_to be_valid
         end
     end
+
+    # 2. Test Associations
+    describe 'associations' do
+        it 'has many tasks' do
+            association = described_class.reflect_on_association(:tasks)
+            expect(association.macro).to eq(:has_many)
+        end
+
+        it 'destroys dependent tasks when user is deleted' do
+            user = User.create!(email: 'boss@test.com', password: 'password')
+            user.tasks.create!(title: 'Task 1', status: 'pending', priority: 1)
+            
+            expect { user.destroy }.to change(Task, :count).by(-1)
+        end
+    end
+
+    # 3. Test Security (Password Encryption)
+    describe 'password encryption' do
+        it 'encrypts the password using BCrypt' do
+        user = User.create!(email: 'secure@test.com', password: 'secret_password')
+        expect(user.password_digest).to_not be_nil
+        expect(user.password_digest).to_not eq('secret_password')
+        end
+    end
+
 end
