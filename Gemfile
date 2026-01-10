@@ -52,6 +52,11 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Use RSpec for testing [https://rspec.info/]
+  gem 'rspec-rails', '~> 6.1.0'# Testing framework for Rails
+  gem 'factory_bot_rails'      # Bonus: helps create test data easily
+  gem 'faker'                  # Bonus: generates random names/emails
 end
 
 group :development do
