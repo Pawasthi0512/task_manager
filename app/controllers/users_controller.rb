@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, except: [:create]
+
   def index
     @users = User.all
     render json: @users.as_json(except: :password_digest)

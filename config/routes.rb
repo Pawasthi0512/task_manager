@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
   resources :users, only: [:index, :show, :create]
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
